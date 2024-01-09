@@ -15,7 +15,10 @@ describe('E2E UI Test', () => {
     //book Appointment 
     cy.get('#combo_facility').select(facility);
     cy.get('#radio_program_medicaid').click();
-    cy.get('#radio_program_medicaid').invoke('text').as('valueRadioProgram')
+    cy.get('.radio-inline').invoke('text').as('valueRadioProgram')
+    cy.get('@valueRadioProgram').then((text)=>{
+      cy.log('Label Text', text);
+    })
     cy.get('.checkbox-inline').click();
     cy.get('.col-sm-4 > :nth-child(2)').click();
     cy.get('#txt_visit_date').type(date);
@@ -28,6 +31,7 @@ describe('E2E UI Test', () => {
     cy.get('#hospital_readmission').contains("Yes");
     cy.get('#facility').contains(facility);
     cy.get('#visit_date').contains(date);
+    //cy.get('#program').contains('@valueRadioProgram');
     cy.get('.text-center > .btn').click();
     
     //logout
